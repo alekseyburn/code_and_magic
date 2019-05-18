@@ -4,6 +4,7 @@
 
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
+  var userNameInput = document.querySelector('.setup-user-name');
 
   var WIZARD_NAMES = [
     'Иван',
@@ -58,16 +59,41 @@
     return arr[randomValue];
   };
 
+  var colorize = function (element, inputElement, arr) {
+    element.addEventListener('click', function () {
+      var color = getRandomValue(arr);
+      if (element.tagName.toLowerCase() === 'div') {
+        element.style.backgroundColor = color;
+      } else {
+        element.style.fill = color;
+      }
+      inputElement.value = color;
+    });
+  };
+
+  var isEscEvent = function (evt, action) {
+    if (evt.keyCode === ESC_KEYCODE && evt.target !== userNameInput) {
+      action();
+    }
+  };
+
+  var isEnterEvent = function (evt, action) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      action();
+    }
+  };
+
   window.data = {
-    ESC_KEYCODE: ESC_KEYCODE,
-    ENTER_KEYCODE: ENTER_KEYCODE,
     WIZARD_NAMES: WIZARD_NAMES,
     WIZARD_SURNAMES: WIZARD_SURNAMES,
     WIZARD_COAT_COLORS: WIZARD_COAT_COLORS,
     WIZARD_EYE_COLORS: WIZARD_EYE_COLORS,
     WIZARD_FIREBALL_COLORS: WIZARD_FIREBALL_COLORS,
     setup: setup,
-    getRandomValue: getRandomValue
+    getRandomValue: getRandomValue,
+    isEscEvent: isEscEvent,
+    isEnterEvent: isEnterEvent,
+    colorize: colorize
   };
 
 }());
