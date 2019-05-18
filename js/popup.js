@@ -4,14 +4,11 @@
 
   var setupOpen = document.querySelector('.setup-open-icon');
   var setupClose = document.querySelector('.setup-close');
-  var userNameInput = document.querySelector('.setup-user-name');
 
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === window.data.ESC_KEYCODE && evt.target !== userNameInput) {
-      closePopup();
-      window.data.setup.style.top = '';
-      window.data.setup.style.left = '';
-    }
+    window.data.isEscEvent(evt, closePopup);
+    window.data.setup.style.top = '';
+    window.data.setup.style.left = '';
   };
 
   var openPopup = function () {
@@ -31,9 +28,7 @@
   });
 
   setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.data.ENTER_KEYCODE) {
-      openPopup();
-    }
+    window.data.isEnterEvent(evt, openPopup);
   });
 
   setupClose.addEventListener('click', function () {
@@ -41,8 +36,6 @@
   });
 
   setupClose.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.data.ENTER_KEYCODE) {
-      closePopup();
-    }
+    window.data.isEnterEvent(evt, closePopup);
   });
 }());
