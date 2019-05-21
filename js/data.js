@@ -6,26 +6,26 @@
   var ENTER_KEYCODE = 13;
   var userNameInput = document.querySelector('.setup-user-name');
 
-  var WIZARD_NAMES = [
-    'Иван',
-    'Хуан Себастьян',
-    'Мария', 'Кристоф',
-    'Виктор',
-    'Юлия',
-    'Люпита',
-    'Вашингтон'
-  ];
-
-  var WIZARD_SURNAMES = [
-    'да Марья',
-    'Верон',
-    'Мирабелла',
-    'Вальц',
-    'Онопко',
-    'Топольницкая',
-    'Нионго',
-    'Ирвинг'
-  ];
+  // var WIZARD_NAMES = [
+  //   'Иван',
+  //   'Хуан Себастьян',
+  //   'Мария', 'Кристоф',
+  //   'Виктор',
+  //   'Юлия',
+  //   'Люпита',
+  //   'Вашингтон'
+  // ];
+  //
+  // var WIZARD_SURNAMES = [
+  //   'да Марья',
+  //   'Верон',
+  //   'Мирабелла',
+  //   'Вальц',
+  //   'Онопко',
+  //   'Топольницкая',
+  //   'Нионго',
+  //   'Ирвинг'
+  // ];
 
   var WIZARD_COAT_COLORS = [
     'rgb(101, 137, 164)',
@@ -83,9 +83,38 @@
     }
   };
 
+  var onLoad = function (wizards) {
+    window.createWizards.putWizards(wizards);
+  };
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.backend.load(onLoad, onError);
+
+  var upLoad = function () {
+    setup.classList.add('hidden');
+  };
+
+  var form = setup.querySelector('.setup-wizard-form');
+  var formData = new FormData(form);
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(formData, upLoad, onError);
+    evt.preventDefault();
+  });
+
   window.data = {
-    WIZARD_NAMES: WIZARD_NAMES,
-    WIZARD_SURNAMES: WIZARD_SURNAMES,
+    // WIZARD_NAMES: WIZARD_NAMES,
+    // WIZARD_SURNAMES: WIZARD_SURNAMES,
     WIZARD_COAT_COLORS: WIZARD_COAT_COLORS,
     WIZARD_EYE_COLORS: WIZARD_EYE_COLORS,
     WIZARD_FIREBALL_COLORS: WIZARD_FIREBALL_COLORS,
