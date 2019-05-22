@@ -59,18 +59,6 @@
     return arr[randomValue];
   };
 
-  var colorize = function (element, inputElement, arr) {
-    element.addEventListener('click', function () {
-      var color = getRandomValue(arr);
-      if (element.tagName.toLowerCase() === 'div') {
-        element.style.backgroundColor = color;
-      } else {
-        element.style.fill = color;
-      }
-      inputElement.value = color;
-    });
-  };
-
   var isEscEvent = function (evt, action) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== userNameInput) {
       action();
@@ -87,7 +75,7 @@
     window.createWizards.putWizards(wizards);
   };
 
-  var onError = function (errorMessage) {
+  var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
@@ -99,16 +87,15 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.backend.load(onLoad, onError);
+  window.backend.load(onLoad, errorHandler);
 
   var upLoad = function () {
     setup.classList.add('hidden');
   };
 
   var form = setup.querySelector('.setup-wizard-form');
-  var formData = new FormData(form);
   form.addEventListener('submit', function (evt) {
-    window.backend.save(formData, upLoad, onError);
+    window.backend.save(new FormData(form), upLoad, errorHandler);
     evt.preventDefault();
   });
 
@@ -121,8 +108,7 @@
     setup: setup,
     getRandomValue: getRandomValue,
     isEscEvent: isEscEvent,
-    isEnterEvent: isEnterEvent,
-    colorize: colorize
+    isEnterEvent: isEnterEvent
   };
 
 }());

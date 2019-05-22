@@ -48,12 +48,11 @@
     }
 
     similarListElement.appendChild(fragment);
+
+    window.data.setup.querySelector('.setup-similar').classList.remove('hidden');
   };
 
   window.createWizards = {
     putWizards: putWizards
   };
-
-  window.data.setup.querySelector('.setup-similar').classList.remove('hidden');
-
 }());
