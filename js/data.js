@@ -59,18 +59,6 @@
     return arr[randomValue];
   };
 
-  var colorize = function (element, inputElement, arr) {
-    element.addEventListener('click', function () {
-      var color = getRandomValue(arr);
-      if (element.tagName.toLowerCase() === 'div') {
-        element.style.backgroundColor = color;
-      } else {
-        element.style.fill = color;
-      }
-      inputElement.value = color;
-    });
-  };
-
   var isEscEvent = function (evt, action) {
     if (evt.keyCode === ESC_KEYCODE && evt.target !== userNameInput) {
       action();
@@ -121,8 +109,7 @@
     setup: setup,
     getRandomValue: getRandomValue,
     isEscEvent: isEscEvent,
-    isEnterEvent: isEnterEvent,
-    colorize: colorize
+    isEnterEvent: isEnterEvent
   };
 
 }());

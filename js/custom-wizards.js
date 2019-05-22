@@ -10,9 +10,21 @@
   var inputWizardEyes = window.data.setup.querySelector('input[name="eyes-color"]');
   var inputWizardFireball = window.data.setup.querySelector('input[name="fireball-color"]');
 
-  window.data.colorize(setupWizardCoat, inputWizardCoat, window.data.WIZARD_COAT_COLORS);
-  window.data.colorize(setupWizardEyes, inputWizardEyes, window.data.WIZARD_EYE_COLORS);
-  window.data.colorize(setupWizardFireball, inputWizardFireball, window.data.WIZARD_FIREBALL_COLORS);
+  var colorize = function (element, inputElement, arr) {
+    element.addEventListener('click', function () {
+      var color = window.data.getRandomValue(arr);
+      if (element.tagName.toLowerCase() === 'div') {
+        element.style.backgroundColor = color;
+      } else {
+        element.style.fill = color;
+      }
+      inputElement.value = color;
+    });
+  };
+
+  colorize(setupWizardCoat, inputWizardCoat, window.data.WIZARD_COAT_COLORS);
+  colorize(setupWizardEyes, inputWizardEyes, window.data.WIZARD_EYE_COLORS);
+  colorize(setupWizardFireball, inputWizardFireball, window.data.WIZARD_FIREBALL_COLORS);
 }());
 
 // СТАРАЯ ЛОГИКА (оставил для дальнейшего изучения)
