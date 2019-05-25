@@ -71,34 +71,6 @@
     }
   };
 
-  var onLoad = function (wizards) {
-    window.createWizards.putWizards(wizards);
-  };
-
-  var errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
-  };
-
-  window.backend.load(onLoad, errorHandler);
-
-  var upLoad = function () {
-    setup.classList.add('hidden');
-  };
-
-  var form = setup.querySelector('.setup-wizard-form');
-  form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), upLoad, errorHandler);
-    evt.preventDefault();
-  });
-
   window.data = {
     // WIZARD_NAMES: WIZARD_NAMES,
     // WIZARD_SURNAMES: WIZARD_SURNAMES,
